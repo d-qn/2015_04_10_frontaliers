@@ -1,0 +1,884 @@
+?date()
+Sys.Date()
+"2012-01-01"
+Sys.Date()
+start <- as.Date(start)#
+  end <- as.Date(end)
+start
+start<- "2012-01-01"
+end <- Sys.Date()
+start <- as.Date(start)#
+  end <- as.Date(end)
+start
+end
+str(data)
+data$GFINDAT
+data$GFINDAT >= start
+which(data$GFINDAT >= start)
+data[which(data$GFINDAT >= start),]
+?encoding
+?Encoding
+data.path <- dir(system.file("extdata", package="swiMap"), "GDEHist_GDE\\.txt", full.names = T)#
+  data <- read.csv(data.path, sep ="\t",  header = FALSE, stringsAsFactors = F, encoding = "latin1")#
+  # colnames#
+  colnames(data) <- c('GHSTNR', 'BHSTNR', 'KTKZ', 'GBFSNR', 'GNAME', 'GNAMK', 'GARTE', #
+                      'GSTAT', 'GINIMUT', 'GINIART', 'GINIDAT', 'GFINMUT', 'GFINART', #
+                      'GFINDAT','GMUTDAT')#
+  # tranform to dates#
+  data$GINIDAT <- as.Date(data$GINIDAT, format = "%d.%m.%Y")#
+  data$GFINDAT <- as.Date(data$GFINDAT, format = "%d.%m.%Y")#
+  data$GMUTDAT <- as.Date(data$GMUTDAT, format = "%d.%m.%Y")
+data[which(data$GFINDAT >= start),]
+data[which(data$GFINDAT >= start & data$GINIART == 24),]
+data[which(data$GFINDAT >= start & data$GINIART == 26),]
+data[which(data$GFINDAT >= start || data$GINIDAT >= start),]
+data[which(data$GFINDAT >= start | data$GINIDAT >= start),]
+data[which(data$GFINDAT >= start & data$GINIART == 26),]
+start
+data[which(data$GFINDAT >= start & data$GINIART == 26),'GFINMUT']
+data$GFINMUT %in% data[which(data$GFINDAT >= start & data$GINIART == 26),'GINITMUT']
+which(data$GFINMUT %in% data[which(data$GFINDAT >= start & data$GINIART == 26),'GINITMUT'])
+data[which(data$GFINDAT >= start & data$GINIART == 26),'GFINMUT']
+data[which(data$GFINDAT >= start & data$GINIART == 26),]
+data[which(data$GFINDAT >= start & data$GINIART == 24),]
+which(data$GINIMUT == 3404)
+data[which(data$GINIMUT == 3404),]
+data[which(data$GFINDAT >= start | data$GINIDAT >= start),]
+data[which((data$GFINDAT >= start | data$GINIART >= start) & (data$GFINDAT <= end | data$GINIART <= end)),]
+data[which((data$GFINDAT >= start | data$GINIART >= start),]
+data[which(data$GFINDAT >= start | data$GINIART >= start),]
+data[which(data$GINIMUT == 3404),]
+data[which(data$GFINDAT >= start | data$GINIART >= start),]
+test<- data[which(data$GFINDAT >= start | data$GINIART >= start),]
+data[which(data$GFINDAT >= start | data$GINIART >= start),]
+data[which(data$GINIMUT == 3404),]
+test
+data[which(data$GINIMUT == 3404),]
+any(test$GINIMUT == 3404)
+summary(data$GFINDAT)
+T | NA
+NA | T
+data[which((data$GFINDAT >= start | data$GINIDAT >= start) & (data$GFINDAT <= end | data$GINIDAT <= end)),]
+library(swiTheme)
+?multiplot
+q1 <- qplot(1:10, 1:10, size = 10:1) + xlab("axis x label") + ylab ("y axis label") + theme_swi2()#
+q2 <- qplot(mpg, data = mtcars, geom = "dotplot") + theme_swi()#
+multiplot(list(q1, q2))
+library(leaflet)
+(m <- leaflet() %>% addTiles())
+m %>% setView(lng = -1.5, lat = 53.4, zoom = 10) # set centre and extent of map
+(m2 <- m %>%#
+  setView(-1.5, 53.4, 10) %>% # map location#
+  addMarkers(-1.4, 53.5) %>% # add a marker#
+  addPopups(-1.6, 53.3, popup = "Hello Sheffield!") %>% # popup#
+  # add som circles:#
+  addCircles(color = "black", runif(90, -2, -1), runif(90, 53, 54), runif(90, 10, 500)))
+library(leaflet)#
+m = leaflet() %>% addTiles()
+m
+? addTiles
+library(leaflet)#
+m = leaflet() %>% addTiles()
+m
+m %>% setView(lng = -1.5, lat = 53.4, zoom = 10)
+?leaflet
+?leafletOutput
+(m2 <- m %>%#
+  setView(-1.5, 53.4, 10) %>% # map location#
+  addMarkers(-1.4, 53.5) %>% # add a marker#
+  addPopups(-1.6, 53.3, popup = "Hello Sheffield!") %>% # popup#
+  # add som circles:#
+  addCircles(color = "black", runif(90, -2, -1), runif(90, 53, 54), runif(90, 10, 500)))
+? renderLeaflet
+?leafletMap
+?leafletOutput
+?publish
+publish
+save
+?save
+m2
+save(m2)
+save(m2, "test")
+save(m2, file = "test")
+getwd()
+? html_print
+? toHTML
+library(streamgraph)#
+library(dplyr)#
+ggplot2::movies %>%#
+  select(year, Action, Animation, Comedy, Drama, Documentary, Romance, Short) %>%#
+  tidyr::gather(genre, value, -year) %>%#
+  group_by(year, genre) %>%#
+  tally(wt=value) %>%#
+  streamgraph("genre", "n", "year") %>%#
+  sg_axis_x(20) %>%#
+  sg_colors("PuOr") %>%#
+  sg_legend(show=TRUE, label="Genres: ")
+saveWidget
+library(rgdal)#
+library(leaflet)#
+#
+tmp <- tempdir()#
+#
+url <- "http://personal.tcu.edu/kylewalker/data/mexico.zip"#
+#
+file <- basename(url)#
+#
+download.file(url, file)#
+#
+unzip(file, exdir = tmp)#
+#
+mexico <- readOGR(dsn = tmp, layer = "mexico", encoding = "UTF-8")
+library("swiTheme")#
+library("swiRcharts")#
+library("dplyr")#
+library("rjson")#
+#
+#############################################################################################
+###		SETTINGS	#
+#############################################################################################
+#
+votefile <- "data/VOTEScsv_cleaned.csv"#
+#
+#############################################################################################
+###		load initiative data	#
+#############################################################################################
+#
+initiatives.read <- read.csv(votefile, check.names = F, stringsAsFactors = F, encoding = "latin1")#
+#
+# reverse order #
+initiatives.read <- initiatives.read[rev(as.numeric(rownames(initiatives.read))),]#
+#
+# filter columns#
+initiatives <- initiatives.read %>% select(`Date of Votes`, `Title in English`, `Title in German`, `Title in French`, `Title in Italien`, `Yes [%]`, `Theme codes`)#
+# transform date to date#
+initiatives$date <- as.Date(initiatives$`Date of Votes`)#
+#
+initiatives$year <- as.numeric(substr(initiatives$`Date of Votes`,1, 4))#
+# add counter iniitiative per year #
+initiatives <- do.call(rbind, by(initiatives, initiatives$year, function(ii) {#
+	cbind(ii, n = nrow(ii):1)#
+}))#
+#############################################################################################
+###		Plot#
+#############################################################################################
+#
+## PLOT SETTINGS#
+plot.height <- 350#
+#
+data <- initiatives %>% select (`Title in English`, `year`, `n`,  `Yes [%]`)#
+colnames(data) <- c('name', 'y', 'x', 'value')#
+#
+a <- Highcharts$new()#
+#
+# use type='heatmap' for heat maps#
+a$chart(zoomType = "x", type = 'heatmap', height = plot.height, plotBackgroundColor = "#f7f5ed", inverted = TRUE)#
+a$series( data = rCharts::toJSONArray2(data, json = F, names = T))#
+#
+a$addParams(colorAxis =#
+  list(min = 0, max = 100, stops = list(#
+	  list(0, '#ab3d3f'),#
+      list(0.499, '#EED8D9'),	  #
+      list(0.5, '#999966'),#
+      list(1, '#336666') #
+  ))#
+)#
+#
+# a$legend(align='right',#
+#          layout='vertical',#
+#          margin=0,#
+#          verticalAlign='top',#
+#          y=25,#
+#          symbolHeight=plot.height)#
+a$yAxis(max = max(data$y), ceiling = max(data$y), maxPadding = 0, tickAmount = 2, gridLineWidth =  0, minorGridLineWidth = 0, title = list(text = ""))#
+#
+a$xAxis(lineWidth = 0, minorGridLineWidth = 0, lineColor = 'transparent', labels = list(enabled = FALSE), #
+	minorTickLength = 0, tickLength =  0)  	#
+a$tooltip(formatter = "#! function() { return 'In <b>' + this.point.y + ',</b> the initative:<br><i>' + this.point.name +#
+                    '</i><br>recolted <b>' + this.point.value + '%</b> of yes'; } !#")	 #
+a$legend(enabled = F)#
+a$addAssets(js =#
+   c(#"https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js",#
+     # "https://code.highcharts.com/highcharts.js",#
+     # "https://code.highcharts.com/highcharts-more.js",#
+     "https://code.highcharts.com/modules/exporting.js",#
+     "https://code.highcharts.com/modules/heatmap.js"#
+     )#
+)#
+a#
+#
+a$save(destfile = 'initiative.html')#
+#
+hChart2responsiveHTML("initiative.html", output.html = "initiative_heatmap.html", h2 = "Toutes les initiatives populaires suisses", descr = "",#
+	source = "", h3 = "", author = "Duc-Quang Nguyen | swissinfo.ch")
+library(swiRchart)
+library(swiRcharts)
+?hSeries
+ibrary(swiTheme)#
+a <- rCharts::Highcharts$new()#
+x <- 1:10#
+y <- seq(1, 100, 10)#
+z <- 10:1#
+color <- rep(c("grey", "red"), 5)#
+name <- c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j")#
+series <- c(rep(c("blob", "poop", "doop"), 3), "asdf")#
+a$series(hSeries(x,y,z,name, color, series))#
+#
+# tweak the bubble plot#
+a$chart(zoomType = "xy", type = "bubble")#
+a$plotOptions(bubble = list(dataLabels = list(enabled = T, style = list(textShadow = 'none') ,#
+color = '#aa8959', formatter = "#! function() { return this.point.name; } !#")))#
+#
+a$colors(swi_rpal)#
+a$tooltip(formatter = "#! function() { return this.point.name + ':' +this.x + ', ' + this.y; } !#")#
+a$xAxis(title = list(text = "important indicator", align = "high"), lineColor = list ('#FF0000'))#
+a#
+#
+hChart.html <- tempfile("hchart_labelledBubble.html")#
+a$save(hChart.html)
+library(swiRchart)
+library(swiRcharts)
+?hSeries
+library(swiTheme)#
+a <- rCharts::Highcharts$new()#
+x <- 1:10#
+y <- seq(1, 100, 10)#
+z <- 10:1#
+color <- rep(c("grey", "red"), 5)#
+name <- c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j")#
+series <- c(rep(c("blob", "poop", "doop"), 3), "asdf")#
+a$series(hSeries(x,y,z,name, color, series))
+a$chart(zoomType = "xy", type = "bubble")#
+a$plotOptions(bubble = list(dataLabels = list(enabled = T, style = list(textShadow = 'none') ,#
+color = '#aa8959', formatter = "#! function() { return this.point.name; } !#")))#
+#
+a$colors(swi_rpal)#
+a$tooltip(formatter = "#! function() { return this.point.name + ':' +this.x + ', ' + this.y; } !#")#
+a$xAxis(title = list(text = "important indicator", align = "high"), lineColor = list ('#FF0000'))#
+a#
+#
+hChart.html <- tempfile("hchart_labelledBubble.html")#
+a$save(hChart.html)
+hChart2responsiveHTML
+library(swiRcharts)
+?hSeries
+library(swiTheme)#
+a <- rCharts::Highcharts$new()#
+x <- 1:10#
+y <- seq(1, 100, 10)#
+z <- 10:1#
+color <- rep(c("grey", "red"), 5)#
+name <- c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j")#
+series <- c(rep(c("blob", "poop", "doop"), 3), "asdf")#
+a$series(hSeries(x,y,z,name, color, series))
+hSeries2 <- hSeries2(data.frame(x = x, y = y, z = z, color = color, name = name, series = series), "series")#
+ b <- rCharts::Highcharts$new()#
+b$series(hSeries2)
+b
+install.packages("readr")
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+library(swiTheme)#
+library(swiMap)#
+library(dplyr)#
+require(rgdal)#
+require(rgeos)#
+## data files #######
+#
+### FRONTALIER DATA#
+statf.csv <- "data/px-x-0302010000_101.csv"#
+## Extracted from stat-tab STATF, Q4 since 1996 until 2014#
+### OVERALL JOB BY COMMUNE#
+statent.csv <- "data/px-x-0602010000_102.csv"#
+## Extracted from stat-tab STATENT, 2012 https://www.pxweb.bfs.admin.ch/Selection.aspx?px_language=de&px_db=px-x-0602010000_102&px_tableid=px-x-0602010000_102%5Cpx-x-0602010000_102.px&px_type=PX#
+#
+#############################################################################################
+###		Load data#
+#############################################################################################
+## 1 STATF#
+statf.read <- read.csv(statf.csv, stringsAsFactors = F, check.names = F, sep = "\t", encoding = "latin1")#
+#
+## 1 b cleaning#
+# discard fist column#
+statf.read <- statf.read[,-1]#
+# get only communes values#
+idx.com <- grepl("^\\\u0085\\\u0085", statf.read[,1])#
+statf <- statf.read[idx.com,]#
+statf[,1]  <- gsub("^\\\u0085\\\u0085", "", statf[,1])#
+# rename column#
+colnames(statf)[1] <- 'Commune'#
+## 2 STATENT#
+statent.read <- read.csv(statent.csv, stringsAsFactors = F, check.names = F, sep = "\t", encoding = "latin1")#
+#
+## 2 b cleaning: split the column commune with id code and commnune name into 2 columns#
+statent.read$bfsid <- as.numeric(substr(statent.read[,2], 1, 4))#
+statent.read[,2] <- substr(statent.read[,2], 6, 100)#
+## 3 MAP data load commune map shapefiles and transform it into a data.frame#
+#
+ch.shp <- readOGR(swiMap::getPathShp('CH'), "municipalities-without-lakes")#
+ch.df <- formatShp(ch.shp)#
+lake.df <- formatShp(readOGR(swiMap::getPathShp('CH'), layer = "lakes"))#
+#
+######### CHECK commune names match commune map names#
+# get names and id from map#
+bfsnName <- ch.df[!duplicated(ch.df$BFSNR),c('BFSNR', 'GEMNAME')]#
+bfsnName <- bfsnName[order(bfsnName[,1]),]#
+qf <- unique(statf[,1])#
+qe <- unique(statent.read[,2])#
+# get the index of statf communes not in statent#
+idxna.1 <- which(is.na(match(qf, qe)))#
+#
+# get the communes historical mutation data from OFS#
+start <- as.Date("2012-01-01")#
+data <- loadCommunesCHdata()#
+mutations <- data[match(qf[idxna.1], data$GNAME),]#
+# get the communes merged#
+communes14to12 <- sapply(mutations$GINIMUT, function(id) {#
+	dd <- data[which(data$GFINMUT == id),]#
+	dd$GNAME#
+})#
+names(communes14to12) <- mutations$GNAME#
+#
+## complete STATF DATA by creating communes in 2014 missing in 2012#
+statent <- statent.read#
+#
+for(i in 1:length(communes14to12) ) {#
+	sumEmplois <- sum(statent.read [which(statent.read$Commune %in% communes14to12[[i]]),'Emplois'])#
+	statent <- rbind(statent, data.frame(Année = 2012, Commune = names(communes14to12)[i], Emplois = sumEmplois,#
+		bfsid = mutations[which(mutations$GNAME == names(communes14to12)[i]),'GBFSNR']))#
+}#
+#############################################################################################
+###		Compute#
+#############################################################################################
+#
+# transform statf data to a matrix#
+rownames(statf) <- statf[,1]#
+statf <- as.matrix(statf[,-1])#
+# renames column names#
+colnames(statf) <- gsub(" T4", "", colnames(statf))#
+# create matrix of the % frontaliers#
+statf.pc <- (statf /statent[match(rownames(statf), statent$Commune), 'Emplois']) * 100#
+#
+#############################################################################################
+###		Map#
+#############################################################################################
+breaks <- c(-1,0, 1, 2.5, 5, 7.5, 10, 15, 20, 25, 30, Inf)#
+idxM <- match(ch.df$GEMNAME, rownames(statf.pc))#
+colors <- colorRampPalette(c(swi_spal[1], swi_spal[6]))(length(breaks))#
+colors <- colorRampPalette(c(swi_spal[1], "#663333"))(length(breaks))#
+#
+# plots <- lapply(as.character(seq(1996, 2014, 3)), function(year) {#
+# 	df <- ch.df#
+# 	bin <- cut(statf.pc[,year], breaks)#
+# 	df$bin <- bin[idxM]#
+# 	gp <- ggplot(df, aes(x = long, y = lat, group = group)) +#
+# 		geom_polygon(colour = alpha("black", 0.5), size = 0.01, aes(fill = bin)) + scale_fill_manual(values = colors) + ggtitle(year) +#
+# 		geom_polygon(data = lake.df, fill = alpha("#366096", alpha = 1), colour = alpha("#366096", alpha = 0.5)) + theme_swiMin() + theme(aspect.ratio = 0.8)#
+# 	gp#
+# })#
+#
+df.y <- do.call(rbind, lapply(as.character(seq(1996, 2014, 6)), function(year) {#
+	df <- ch.df#
+	bin <- cut(statf.pc[,year], breaks)#
+	df$bin <- bin[idxM]#
+	df$pc <- statf.pc[,year][idxM]#
+	df$abs <- statf[,year][idxM]#
+	df$year <- year#
+	df#
+}))#
+map <- ggplot(df.y, aes(x = long, y = lat, group = group)) + geom_polygon(colour = alpha("black", 0.5), size = 0.01, aes(fill = bin)) +#
+	scale_fill_manual(values = colors) +#
+	geom_polygon(data = lake.df, fill = alpha("#366096", alpha = 1), colour = alpha("#366096", alpha = 0.5)) +#
+	theme_swiMin() + theme(aspect.ratio = 0.8, legend.key.size = unit(0.5, "lines"), legend.position = "bottom") + facet_wrap(~ year, ncol = 1)#
+pdfswi_long("mapFrontalier_l.pdf")#
+map#
+dev.off()#
+#
+map#
+ggsave(file="mapFrontalier_long.svg", width=6, height=8)#
+#############################################################################################
+###		Interactive Map#
+#############################################################################################
+library(leaflet)#
+#
+ogrInfo(swiMap::getPathShp('CH'),  "municipalities-without-lakes")#
+#
+#plot(ch.shp)#
+#
+ch <- spTransform(ch.shp, CRS("+init=epsg:4326"))#
+plot(ch)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet() %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(data = ch, fillColor = "black", color = "#BDBDC3")
+str(ch@data)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+df <- filter(df.y, year == 2014)
+str(df)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+str(ch@data)
+str(df)
+statf.pc
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+idxM <- match(ch$GEMNAME, rownames(statf.pc))
+str(idxM)
+idxM
+colnames(statf.pc)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+idxM <- match(ch$GEMNAME, rownames(statf.pc))#
+ch@data$pc <- statf.pc[,"2014"][idxM]
+str(ch@data)
+hist(ch@data$pc)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+idxM <- match(ch$GEMNAME, rownames(statf.pc))#
+ch@data$pc <- statf.pc[,"2014"][idxM]#
+ch@data$abs <- statf[,"2014"][idxM]#
+#
+pal <- colorQuantile("YlGn", NULL, n = 8)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs)#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(pc), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+pal <- colorQuantile("YlGn", NULL, n = 2)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs)#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(pc), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+pal <- colorQuantile("YlGn", NULL, n = 5)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs)#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(pc), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+pal <- colorQuantile("YlGn", NULL, n = 3)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs)#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(pc), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+pal <- colorQuantile("YlGn", NULL, n = 3)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs,#
+					   "<br><strong>% des emplois frontalier:</strong>",#
+					  ch$pc)#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(pc), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+?round
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+str(ch@data)#
+idxM <- match(ch$GEMNAME, rownames(statf.pc))#
+ch@data$pc <- statf.pc[,"2014"][idxM]#
+ch@data$abs <- round(statf[,"2014"][idxM], 3)#
+#
+pal <- colorQuantile("YlGn", NULL, n = 3)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs,#
+					   "<br><strong>% des emplois frontalier:</strong>",#
+					  ch$pc)#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(pc), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+round(statf[,"2014"][idxM], 3)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+idxM <- match(ch$GEMNAME, rownames(statf.pc))#
+ch@data$pc <- round(statf.pc[,"2014"][idxM], 3)#
+ch@data$abs <- statf[,"2014"][idxM]#
+#
+pal <- colorQuantile("YlGn", NULL, n = 3)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs,#
+					   "<br><strong>% des emplois frontalier:</strong>",#
+					  ch$pc)#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(pc), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+idxM <- match(ch$GEMNAME, rownames(statf.pc))#
+ch@data$pc <- round(statf.pc[,"2014"][idxM], 8)#
+ch@data$abs <- statf[,"2014"][idxM]#
+#
+pal <- colorQuantile("YlGn", NULL, n = 3)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs,#
+					   "<br><strong>% des emplois frontalier: </strong>",#
+					  ch$pc, " %")#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(log(pc)), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+idxM <- match(ch$GEMNAME, rownames(statf.pc))#
+ch@data$pc <- round(statf.pc[,"2014"][idxM], 2)#
+ch@data$abs <- statf[,"2014"][idxM]#
+#
+pal <- colorQuantile("YlGn", NULL, n = 8)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs,#
+					   "<br><strong>% des emplois frontalier: </strong>",#
+					  ch$pc, " %")#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(log(pc)), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+pal <- colorQuantile("YlGn", NULL, n = 5)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs,#
+					   "<br><strong>% des emplois frontalier: </strong>",#
+					  ch$pc, " %")#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(pc), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+pal <- colorQuantile("YlGn", NULL, n = 4)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs,#
+					   "<br><strong>% des emplois frontalier: </strong>",#
+					  ch$pc, " %")#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(pc), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+hist(statf.pc[,"2014"])
+hist(statf.pc[,"2014"], breaks = 100)
+hist(log(statf.pc[,"2014"]), breaks = 100)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+idxM <- match(ch$GEMNAME, rownames(statf.pc))#
+ch@data$pc <- round(statf.pc[,"2014"][idxM], 2)#
+ch@data$logpc <- log(statf.pc[,"2014"][idxM])#
+ch@data$abs <- statf[,"2014"][idxM]#
+#
+pal <- colorQuantile("YlGn", NULL, n = 8)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs,#
+					   "<br><strong>% des emplois frontalier: </strong>",#
+					  ch$pc, " %")#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(logpc), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+hist(log(statf.pc[,"2014"]), breaks = 100)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+ch@data$lo
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+log(statf.pc[,"2014"][idxM])
+hist(asinh(statf.pc[,"2014"]), breaks = 100)
+quantile(statf.pc[,"2014"], probs = seq(0, 1, length.out = 5 + 1))
+quantile(statf.pc[,"2014"], probs = seq(0, 1, length.out = 10 + 1))
+quantile(statf.pc[,"2014"], probs = seq(0, 1, length.out = 10 + 1))
+quantile(statf.pc[,"2014"], probs = seq(0, 1, length.out = 11 + 1))
+quantile(statf.pc[,"2014"], probs = seq(0, 1, length.out = 11 + 1))
+quantile(statf.pc[,"2014"], probs = seq(0, 1, length.out = 11 + 1))
+quantile(statf.pc[,"2014"], probs = seq(0, 1, length.out = 11 + 4))
+quantile(statf.pc[,"2014"], probs = seq(0, 1, length.out = 11 + 6))
+probs<- c(0, 0.3, 0.45, 0.6, 0.75, 0.8, 0.85, 0.9, 0.95)
+quantile(statf.pc[,"2014"], probs)
+probs<- c(0, 0.3, 0.45, 0.6, 0.75, 0.8, 0.85, 0.9, 0.95, 1)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+probs <- c(0, 0.3, 0.45, 0.6, 0.75, 0.8, 0.85, 0.9, 0.95, 1)#
+pal <- colorQuantile("YlGn", NULL, probs = probs)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs,#
+					   "<br><strong>% des emplois frontalier: </strong>",#
+					  ch$pc, " %")#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(logpc), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+quantile(statf.pc[,"2014"], probs)
+quantile(statf.pc[,"2014"], seq=(0, 1, 0.05))
+quantile(statf.pc[,"2014"], probs = (0, 1, 0.05))
+quantile(statf.pc[,"2014"], probs = seq(0, 1, 0.05) )
+quantile(statf.pc[,"2014"], probs = c(0, 0.5, 0.75, 0.8, 0.85, 0.9, 0.95, 1))
+quantile(statf.pc[,"2014"], probs = c(0, 0.6, 0.75, 0.8, 0.85, 0.9, 0.95, 1))
+quantile(statf.pc[,"2014"], probs = c(0, 0.55, 0.75, 0.8, 0.85, 0.9, 0.95, 1))
+quantile(statf.pc[,"2014"], probs = c(0, 0.58, 0.75, 0.8, 0.85, 0.9, 0.95, 1))
+quantile(statf.pc[,"2014"], probs = c(0, 0.57, 0.75, 0.8, 0.85, 0.9, 0.95, 1))
+quantile(statf.pc[,"2014"], probs = c(0, 0.575, 0.75, 0.8, 0.85, 0.9, 0.95, 1))
+quantile(statf.pc[,"2014"], probs = c(0, 0.575, 0.77, 0.8, 0.85, 0.9, 0.95, 1))
+quantile(statf.pc[,"2014"], probs = c(0, 0.575, 0.76, 0.8, 0.85, 0.9, 0.95, 1))
+quantile(statf.pc[,"2014"], probs = c(0, 0.575, 0.755, 0.8, 0.85, 0.9, 0.95, 1))
+quantile(statf.pc[,"2014"], probs = c(0, 0.575, 0.757, 0.8, 0.85, 0.9, 0.95, 1))
+quantile(statf.pc[,"2014"], probs = c(0, 0.575, 0.757, 0.85, 0.85, 0.9, 0.95, 1))
+quantile(statf.pc[,"2014"], probs = c(0, 0.575, 0.757, 0.86, 0.85, 0.9, 0.95, 1))
+quantile(statf.pc[,"2014"], probs = c(0, 0.575, 0.757, 0.86, 0.85, 0.9, 0.95, 0.97, 1))
+quantile(statf.pc[,"2014"], probs = c(0, 0.575, 0.757, 0.86, 0.85, 0.9, 0.95, 0.98, 1))
+quantile(statf.pc[,"2014"], probs = c(0, 0.575, 0.757, 0.86, 0.85, 0.9, 0.95, 0.99, 1))
+quantile(statf.pc[,"2014"], probs = c(0, 0.575, 0.757, 0.86, 0.85, 0.9, 0.95, 0.99, 0.995, 1))
+quantile(statf.pc[,"2014"], probs = c(0, 0.575, 0.757, 0.86, 0.85, 0.9, 0.95, 0.99, 0.997, 1))
+quantile(statf.pc[,"2014"], probs = c(0, 0.575, 0.757, 0.86, 0.85, 0.9, 0.95, 0.99, 1))
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+probs <- c(0, 0.575, 0.757, 0.86, 0.85, 0.9, 0.95, 0.99, 1)#
+pal <- colorQuantile("YlGn", NULL, probs = probs)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs,#
+					   "<br><strong>% des emplois frontalier: </strong>",#
+					  ch$pc, " %")#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(logpc), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+quantile(statf.pc[,"2014"], probs = c(0, 0.575, 0.757, 0.86, 0.85, 0.9, 0.95, 0.99, 1))
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+probs <- c(0, 0.35, 0.575, 0.757, 0.86, 0.85, 0.9, 0.95, 0.99, 1)#
+pal <- colorQuantile("YlGn", NULL, probs = probs)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs,#
+					   "<br><strong>% des emplois frontalier: </strong>",#
+					  ch$pc, " %")#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(logpc), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+colorRamp(c("#000000", "#FFFFFF"), interpolate="spline")
+colorRamp(c("#000000", "#FFFFFF"), interpolate="spline")(1)
+colorRamp(c("#000000", "#FFFFFF"), interpolate="spline")(0.5)
+colorRamp(c("#000000", "#FFFFFF"), interpolate="spline")()
+previewColors(colorNumeric("Blues", domain = NULL), sort(rexp(16)))
+pal = colorBin("Greens", domain = 0:100)#
+pal(runif(10, 60, 100))#
+#
+# Exponential distribution, mapped continuously#
+previewColors(colorNumeric("Blues", domain = NULL), sort(rexp(16)))#
+# Exponential distribution, mapped by interval#
+previewColors(colorBin("Blues", domain = NULL, bins = 4), sort(rexp(16)))#
+# Exponential distribution, mapped by quantile#
+previewColors(colorQuantile("Blues", domain = NULL), sort(rexp(16)))#
+#
+# Categorical data; by default, the values being colored span the#
+# gamut...#
+previewColors(colorFactor("RdYlBu", domain = NULL), LETTERS[1:5])#
+# ...unless the data is a factor, without droplevels...#
+previewColors(colorFactor("RdYlBu", domain = NULL), factor(LETTERS[1:5], #
+    levels = LETTERS))#
+# ...or the domain is stated explicitly.#
+previewColors(colorFactor("RdYlBu", levels = LETTERS), LETTERS[1:5])
+previewColors(swi_spal)
+? swi_spal
+pie(rep(1,length(swi_spal)), col=swi_spal)
+pie(rep(1,length(swi_dpal)), col=swi_dpal2)
+swi_dpal
+colorRamp(c(swi_dpal[1], swi_dpal[5]), interpolate="spline")
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+pal <- colorQuantile(colorRamp(c(swi_dpal[1], swi_dpal[5]), interpolate="spline"), NULL, probs = probs)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs,#
+					   "<br><strong>% des emplois frontalier: </strong>",#
+					  ch$pc, " %")#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(logpc), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+?previewColors
+previewColors(colorRamp(c(swi_dpal[1], swi_dpal[5]), interpolate="spline"), seq(0, 1, 0.1))
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+probs <- c(0, 0.35, 0.575, 0.757, 0.86, 0.85, 0.9, 0.95, 0.99, 1)#
+pal <- colorQuantile(colorRamp(c(swi_dpal[1], swi_dpal[5])), NULL, probs = probs)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs,#
+					   "<br><strong>% des emplois frontalier: </strong>",#
+					  ch$pc, " %")#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(logpc), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+pal <- colorQuantile(colorRamp(c(swi_dpal[5], swi_dpal[1])), NULL, probs = probs)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs,#
+					   "<br><strong>% des emplois frontalier: </strong>",#
+					  ch$pc, " %")#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(logpc), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+pie(rep(1,length(swi_dpal)), col=swi_dpal2)
+swi_dpal[1]
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+pal <- colorQuantile(colorRamp(c("#DAE0E0", swi_dpal[1])), NULL, probs = probs)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs,#
+					   "<br><strong>% des emplois frontalier: </strong>",#
+					  ch$pc, " %")#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(logpc), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+pal <- colorQuantile(colorRamp(c("#DAE0E0", "#405C5C")), NULL, probs = probs)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs,#
+					   "<br><strong>% des emplois frontalier: </strong>",#
+					  ch$pc, " %")#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(logpc), fillOpacity = 0.8, color = "#BDBDC3", weight = 1, popup = state_popup)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+probs <- c(0, 0.35, 0.575, 0.757, 0.86, 0.85, 0.9, 0.95, 0.99, 1)#
+pal <- colorQuantile(colorRamp(c("#DAE0E0", "#405C5C")), NULL, probs = probs)#
+state_popup <- paste0("<strong>Commune: </strong>",#
+                      ch$GEMNAME,#
+                      "<br><strong>Frontalier en 2014: </strong>",#
+                      ch$abs,#
+					   "<br><strong>% des emplois frontalier: </strong>",#
+					  ch$pc, " %")#
+#
+mb_tiles <- "http://a.tiles.mapbox.com/v3/kwalkertcu.l1fc0hab/{z}/{x}/{y}.png"#
+mb_attribution <- 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'#
+#
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+m %>% addPolygons(fillColor = ~pal(logpc), fillOpacity = 0.8, color = "#DAE0E0", weight = 1, popup = state_popup)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+           attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+map <- m %>% addPolygons(fillColor = ~pal(logpc), fillOpacity = 0.8, color = "#DAE0E0", weight = 1, popup = state_popup)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+saveWidget(map, file="frontalierMap.html")
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+library(htmlwidgets)
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+saveWidget(map, file="frontalierMap.html")
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+m <- leaflet(data = ch) %>% addTiles() %>% setView(8.227512, 46.818188, zoom = 9)#
+map <- m %>% addPolygons(fillColor = ~pal(logpc), fillOpacity = 0.8, color = "#DAE0E0", weight = 1, popup = state_popup)
+map
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+m <- leaflet(data = ch)  %>% setView(8.227512, 46.818188, zoom = 9)#
+map <- m %>% addPolygons(fillColor = ~pal(logpc), fillOpacity = 0.8, color = "#DAE0E0", weight = 1, popup = state_popup)
+maé
+map
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+	attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+map <- m %>% addPolygons(fillColor = ~pal(logpc), fillOpacity = 0.8, color = "#ECEFEF", weight = 1, popup = state_popup)
+map
+? addPolygons
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+m <- leaflet(data = ch) %>% addTiles(urlTemplate = mb_tiles,#
+	attribution = mb_attribution) %>% setView(8.227512, 46.818188, zoom = 9)#
+map <- m %>% addPolygons(fillColor = ~pal(logpc), fillOpacity = 0.9, color = "#ECEFEF", weight = 1, popup = state_popup)
+map
+setwd('/Users/nguyendu/Google Drive/swissinfo/2015_04_10_frontaliers')
+m <- leaflet(data = ch) %>% setView(8.227512, 46.818188, zoom = 9)#
+map <- m %>% addPolygons(fillColor = ~pal(logpc), fillOpacity = 0.9, color = "#ECEFEF", weight = 1, popup = state_popup)
+map
